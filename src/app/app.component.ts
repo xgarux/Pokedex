@@ -4,12 +4,13 @@ import { DetailpokemonComponent } from './pokemon/detailpokemon/detailpokemon.co
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,DetailpokemonComponent, PokemonComponent],
+  imports: [RouterOutlet,DetailpokemonComponent, PokemonComponent, PokedexComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
