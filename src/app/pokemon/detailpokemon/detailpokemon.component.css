@@ -1,1 +1,29 @@
 @import url(../../app.component.css);
+.pokemon-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.pokemon-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+
+}
+
+.pokemon-image {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.pokemon-description {
+  font-size: 16px;
+  color: #666666;
+}

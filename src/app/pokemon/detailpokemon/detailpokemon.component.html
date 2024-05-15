@@ -1,14 +1,14 @@
-<div class="container mx-auto py-8">
+<div class="container mx-auto py-8 pokemon-card">
   <div class="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
     <!-- Encabezado con el nombre del Pokémon -->
     <div class="px-6 py-4">
-      <h2 class="text-xl font-semibold text-gray-800">{{ pokemon?.name }}</h2>
+      <h2 class="text-xl font-semibold text-gray-800 pokemon-name">{{ pokemon?.name }}</h2>
     </div>
     <!-- Detalles del Pokémon -->
     <div class="p-6">
       <!-- Imagen del Pokémon -->
       <div class="text-center">
-        <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="w-32 mx-auto">
+        <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="pokemon-image">
       </div>
       <!-- Tipos del Pokémon -->
       <div class="mt-4">
@@ -22,7 +22,7 @@
       <!-- Otras especificaciones del Pokémon -->
       <div class="mt-4">
         <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>
-        <ul class="mt-2">
+        <ul class="mt-2 pokemon-description">
           <li><span class="font-semibold">Experiencia Base:</span> {{ pokemon?.base_experience }}</li>
           <li><span class="font-semibold">Altura:</span> {{ pokemon?.height }}</li>
           <li><span class="font-semibold">Peso:</span> {{ pokemon?.weight }}</li>
@@ -32,7 +32,6 @@
     </div>
   </div>
 </div>
-
 <!-- <div>
   <ul
     class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">

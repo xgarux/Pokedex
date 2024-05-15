@@ -1,24 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { Pokemon } from '../interface/interfacepokemon';
 import { CommonModule } from '@angular/common';
+import { PokemonComponent } from '../pokemon.component';
 
 @Component({
   selector: 'app-detailpokemon',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PokemonComponent],
   templateUrl: './detailpokemon.component.html',
   styleUrl: './detailpokemon.component.css'
 })
-export class DetailpokemonComponent implements OnInit {
+export class DetailpokemonComponent implements OnChanges, OnInit{
 
   constructor(private servicePokemon: ServiceService) { }
 
+  @Input() pokemonName: string = 'bulbasaur';
   pokemon?: Pokemon;
-  pokemon_id:number = 0;
+  pokemon_id:number = 1;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
+      const newPokemonName = changes['pokemonName'].currentValue;
+      if (newPokemonName) {
+        this.getPokemon(newPokemonName);
+      }
+    }
+  }
   ngOnInit(): void {
-    this.servicePokemon.getPokemonById(this.pokemon_id).subscribe({
+    this.getPokemon('bulbasaur');
+  }
+  getPokemon(name: string): void {
+    this.servicePokemon.getPokemonByName(name).subscribe({
       next: (poke: Pokemon | undefined) => {
         console.log(poke);
         this.pokemon = poke;
@@ -27,7 +40,10 @@ export class DetailpokemonComponent implements OnInit {
         console.error(err);
       }
     });
+
   }
+
+
   getBackgroundColor(types: Pokemon): any {
     const primaryType = types.types.length > 0 ? types.types[0].type.name : '';
     switch (primaryType) {
