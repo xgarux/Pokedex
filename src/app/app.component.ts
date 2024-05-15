@@ -11,10 +11,5 @@ import { DetailpokemonComponent } from './pokemon/detailpokemon/detailpokemon.co
 })
 export class AppComponent {
   title = 'pokedex';
-  cliqueable = false;
-
-  change(){
-    this.cliqueable = !this.cliqueable;
-  }
 
 }

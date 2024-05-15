@@ -1,0 +1,89 @@
+/* Normal */
+.normal-bg {
+  background-color: #A8A878; /* Color normal */
+}
+
+/* Fire */
+.fire-bg {
+  background-color: #F08030; /* Color fuego */
+}
+
+/* Water */
+.water-bg {
+  background-color: #6890F0; /* Color agua */
+}
+
+/* Electric */
+.electric-bg {
+  background-color: #F8D030; /* Color eléctrico */
+}
+
+/* Grass */
+.grass-bg {
+  background-color: #78C850; /* Color hierba */
+}
+
+/* Ice */
+.ice-bg {
+  background-color: #98D8D8; /* Color hielo */
+}
+
+/* Fighting */
+.fighting-bg {
+  background-color: #C03028; /* Color lucha */
+}
+
+/* Poison */
+.poison-bg {
+  background-color: #A040A0; /* Color veneno */
+}
+
+/* Ground */
+.ground-bg {
+  background-color: #E0C068; /* Color tierra */
+}
+
+/* Flying */
+.flying-bg {
+  background-color: #A890F0; /* Color volador */
+}
+
+/* Psychic */
+.psychic-bg {
+  background-color: #F85888; /* Color psíquico */
+}
+
+/* Bug */
+.bug-bg {
+  background-color: #A8B820; /* Color bicho */
+}
+
+/* Rock */
+.rock-bg {
+  background-color: #B8A038; /* Color roca */
+}
+
+/* Ghost */
+.ghost-bg {
+  background-color: #705898; /* Color fantasma */
+}
+
+/* Dragon */
+.dragon-bg {
+  background-color: #7038F8; /* Color dragón */
+}
+
+/* Dark */
+.dark-bg {
+  background-color: #705848; /* Color siniestro */
+}
+
+/* Steel */
+.steel-bg {
+  background-color: #B8B8D0; /* Color acero */
+}
+
+/* Fairy */
+.fairy-bg {
+  background-color: #EE99AC; /* Color hada */
+}

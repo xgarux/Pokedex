@@ -1,1 +1,49 @@
-<p>{{nombre}}</p>
+<div class="container mx-auto py-8">
+  <div class="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
+    <!-- Encabezado con el nombre del Pokémon -->
+    <div class="px-6 py-4">
+      <h2 class="text-xl font-semibold text-gray-800">{{ pokemon?.name }}</h2>
+    </div>
+    <!-- Detalles del Pokémon -->
+    <div class="p-6">
+      <!-- Imagen del Pokémon -->
+      <div class="text-center">
+        <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="w-32 mx-auto">
+      </div>
+      <!-- Tipos del Pokémon -->
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold text-gray-800">Tipos:</h3>
+        <ul class="mt-2">
+          <li *ngFor="let type of pokemon?.types" [ngClass]="getTypeColor(type.type.name)" class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">
+            {{ type.type.name }}
+          </li>
+        </ul>
+      </div>
+      <!-- Otras especificaciones del Pokémon -->
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>
+        <ul class="mt-2">
+          <li><span class="font-semibold">Experiencia Base:</span> {{ pokemon?.base_experience }}</li>
+          <li><span class="font-semibold">Altura:</span> {{ pokemon?.height }}</li>
+          <li><span class="font-semibold">Peso:</span> {{ pokemon?.weight }}</li>
+          <!-- Puedes agregar más especificaciones según lo necesites -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div>
+  <ul
+    class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">{{pokemon?.name}}</li>
+    @for (type of pokemon?.types; track $index) {
+    <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+      {{type.type.name}}
+    </li>
+    }
+    <li class="w-full px-4 py-2 rounded-b-lg"></li>
+    <li><img class="h-auto max-w-lg rounded-lg" src="{{pokemon?.sprites?.front_default}}" alt="{{pokemon?.name}}"></li>
+  </ul>
+
+</div> -->
