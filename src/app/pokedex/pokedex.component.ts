@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { PokemonComponent } from '../pokemon/pokemon.component';
 import { CommonModule } from '@angular/common';
 import { DetailpokemonComponent } from '../pokemon/detailpokemon/detailpokemon.component';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-pokedex',
@@ -13,18 +12,21 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 })
 export class PokedexComponent {
-  showPokedex: boolean = true;
+  isOpen: boolean = true;
   selectedPokemonName: string = '';
-
+  boxHeight: number = 0;
+  boxWidth: number = 0;
   onPokemonSelected(pokemonName: string): void {
     this.selectedPokemonName = pokemonName;
-    this.togglePokedexAnimation();
+    this.toggle();
   }
 
-  togglePokedexAnimation(): void {
-    this.showPokedex = false;
-    setTimeout(() => {
-      this.showPokedex = true;
-    }, 500); // Duración de la animación en milisegundos
+  toggle() {
+    this.isOpen = !this.isOpen;
+    if (!this.isOpen) {
+      setTimeout(() => {
+        this.isOpen = true;
+      }, 1000);
+    }
   }
 }

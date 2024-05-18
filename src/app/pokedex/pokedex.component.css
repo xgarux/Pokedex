@@ -1,8 +1,30 @@
 @import url(../app.component.css);
-.scale-down-vertical-center{
-  animation:scale-down-vertical-center 0.2s
+/* .scale-down-ver-center {
+	-webkit-animation: scale-down-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-down-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-@keyframes scale-down-vertical-center{
-  0%{transform:scaleY(1);}
-  100%{transform:scaleY(0);}
+
+@keyframes scale-down-ver-center {
+  0% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+  100% {
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+  }
+} */
+
+
+.box {
+  height: 450px;
+  transition: opacity 0.2s ease-in-out, height 0.5s ease-in-out;
+  opacity: 1;
 }
+
+
+.closed {
+  height: 0;
+  opacity: 0;
+/*   transition: height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.7s;
+ */}

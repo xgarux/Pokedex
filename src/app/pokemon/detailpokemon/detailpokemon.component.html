@@ -1,33 +1,41 @@
-<div class="container mx-auto py-8 pokemon-card">
-  <div class="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
-    <!-- Encabezado con el nombre del Pokémon -->
-    <div class="px-6 py-4">
-      <h2 class="text-xl font-semibold text-gray-800 pokemon-name">{{ pokemon?.name }}</h2>
-    </div>
-    <!-- Detalles del Pokémon -->
-    <div class="p-6">
-      <!-- Imagen del Pokémon -->
-      <div class="text-center">
-        <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="pokemon-image">
+<div class="flex container mx-auto py-8 pokemon-card">
+  <div class="flex space-x-1 max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
+    <!-- Encabezado con el nombre del Pokwh-animatedémon -->
+    <div>
+      <div class="px-6 py-4">
+        <h2 class="text-xl font-semibold text-gray-800 pokemon-name">{{ pokemon?.name }}</h2>
       </div>
-      <!-- Tipos del Pokémon -->
-      <div class="mt-4">
-        <h3 class="text-lg font-semibold text-gray-800">Tipos:</h3>
-        <ul class="mt-2">
-          <li *ngFor="let type of pokemon?.types" [ngClass]="getTypeColor(type.type.name)" class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">
-            {{ type.type.name }}
-          </li>
-        </ul>
+      <!-- Detalles del Pokémon -->
+      <div class="p-6">
+        <!-- Imagen del Pokémon -->
+        <div class="text-center">
+          <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="pokemon-image">
+        </div>
+        <!-- Tipos del Pokémon -->
+        <div class="mt-4">
+          <h3 class="text-lg font-semibold text-gray-800">Tipos:</h3>
+          <ul class="mt-2">
+            <li *ngFor="let type of pokemon?.types" [ngClass]="getTypeColor(type.type.name)"
+              class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">
+              {{ type.type.name }}
+            </li>
+          </ul>
+        </div>
+        <button (click)="clickview()"><span>View All Details</span></button>
       </div>
+
       <!-- Otras especificaciones del Pokémon -->
-<!--       <div class="mt-4">
-        <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>
-        <ul class="mt-2 pokemon-description">
-          <li><span class="font-semibold">Experiencia Base:</span> {{ pokemon?.base_experience }}</li>
-          <li><span class="font-semibold">Altura:</span> {{ pokemon?.height }}</li>
-          <li><span class="font-semibold">Peso:</span> {{ pokemon?.weight }}</li>
-        </ul>
-      </div> -->
+
+    </div>
+
+    <div class="mt-4"
+    [ngClass]="hiddenView ? '' : 'hidden'">
+      <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>
+      <ul class="mt-2 pokemon-description">
+        <li><span class="font-semibold">Experiencia Base:</span> {{ pokemon?.base_experience }}</li>
+        <li><span class="font-semibold">Altura:</span> {{ pokemon?.height }}</li>
+        <li><span class="font-semibold">Peso:</span> {{ pokemon?.weight }}</li>
+      </ul>
     </div>
   </div>
 </div>

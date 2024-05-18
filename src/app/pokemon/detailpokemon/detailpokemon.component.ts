@@ -18,12 +18,17 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   @Input() pokemonName: string = 'bulbasaur';
   pokemon?: Pokemon;
   pokemon_id:number = 1;
+  hiddenView:boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
       const newPokemonName = changes['pokemonName'].currentValue;
       if (newPokemonName) {
-        this.getPokemon(newPokemonName);
+        setTimeout(() => {
+          this.getPokemon(newPokemonName);
+          this.hiddenView=false;
+        }, 500);
+
       }
     }
   }
@@ -42,7 +47,9 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
     });
 
   }
-
+  clickview(){
+    this.hiddenView = !this.hiddenView;
+  }
 
   getBackgroundColor(types: Pokemon): any {
     const primaryType = types.types.length > 0 ? types.types[0].type.name : '';
