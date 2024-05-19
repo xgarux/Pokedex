@@ -14,8 +14,6 @@ import { DetailpokemonComponent } from '../pokemon/detailpokemon/detailpokemon.c
 export class PokedexComponent {
   isOpen: boolean = true;
   selectedPokemonName: string = '';
-  boxHeight: number = 0;
-  boxWidth: number = 0;
   onPokemonSelected(pokemonName: string): void {
     this.selectedPokemonName = pokemonName;
     this.toggle();

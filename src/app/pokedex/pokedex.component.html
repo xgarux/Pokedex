@@ -1,15 +1,11 @@
  <div>
-  <app-pokemon (pokemonSelected)="onPokemonSelected($event)" />
+  <app-pokemon (pokemonSelected)="onPokemonSelected($event)"/>
 </div>
 <div class="flex justify-center items-center h-screen">
   <div class=" bg-gray-100 rounded-lg shadow-lg overflow-hidden">
     <div class="flex justify-between items-center px-4 py-2 bg-red-600">
       <h1 class="text-lg font-semibold text-white">Pokédex</h1>
-      <button class="text-white">
-        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
+
     </div>
     <div class="box flex justify-center items-center transition-opacity duration-500"
     [ngClass]="isOpen ? 'open' : 'closed'">

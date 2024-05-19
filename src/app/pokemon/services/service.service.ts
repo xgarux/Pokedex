@@ -8,37 +8,36 @@ import { Result, Interfacepokemonlist } from '../interface/interfacepokemonlist'
   providedIn: 'root'
 })
 export class ServiceService {
-
-  url: string = 'https://pokeapi.co/api/v2/pokemon';
-  urlList: string = 'https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0';
+  private readonly baseUrl: string = 'https://pokeapi.co/api/v2/pokemon';
 
   constructor(private http: HttpClient) { }
 
-  getPokemonByName(name: string): Observable<Pokemon | undefined> {
-    const url = `${this.url}/${name}`;
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
+  }
+
+  getPokemonByName(name: string): Observable<Pokemon> {
+    const url = `${this.baseUrl}/${name}`;
     return this.http.get<Pokemon>(url).pipe(
-      catchError(error => {
-        console.log(`Error fetching Pokémon with name ${name}:`, error);
-        return of(undefined);
-      })
+      catchError(this.handleError<Pokemon>(`getPokemonByName name=${name}`, undefined))
     );
   }
-  getPokemonList(): Observable<Result[] | undefined> {
-    return this.http.get<Interfacepokemonlist>(this.urlList).pipe(
-      catchError(error => {
-        console.log('Error fetching Pokémon list:', error);
-        return of(undefined);
-      }),
-      map(response => response?.results)
+
+  getPokemonList(limit: number, offset: number): Observable<Result[] | undefined> {
+    const url = `${this.baseUrl}?limit=${limit}&offset=${offset}`;
+    return this.http.get<Interfacepokemonlist>(url).pipe(
+      map(response => response?.results),
+      catchError(this.handleError<Result[]>('getPokemonList', undefined))
     );
   }
-  getPokemonById(id: number): Observable<Pokemon | undefined> {
-    const url = `${this.url}/${id}`;
+
+  getPokemonById(id: number): Observable<Pokemon> {
+    const url = `${this.baseUrl}/${id}`;
     return this.http.get<Pokemon>(url).pipe(
-      catchError(error => {
-        console.log(`Error fetching Pokémon with ID ${id}:`, error);
-        return of(undefined);
-      })
+      catchError(this.handleError<Pokemon>(`getPokemonById id=${id}`, undefined))
     );
   }
 }

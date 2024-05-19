@@ -1,1 +1,37 @@
-<p>postloadpokemon works!</p>
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40" *ngIf="show" (click)="open()"></div>
+<div
+  class="fixed left-0 top-0 h-full w-64 bg-gray-600 shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
+  [class.translate-x-0]="show" [class.-translate-x-full]="!show">
+  <div class="flex space-x-1 bg-red-600">
+    <button class="text-white p-2" (click)="open()">
+      <svg *ngIf="!isIconToggled" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+      <svg *ngIf="isIconToggled" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+      </svg>
+    </button>
+    <div class="pt-4">
+      <h2 class="text-xl font-bold mb-4 text-white">Pokémon List</h2>
+    </div>
+  </div>
+  <ul class="overflow-y-auto flex-grow max-h-screen">
+    <li *ngFor="let pokemon of pokemons; let i = index" class="flex items-center mb-2 dark:hover:bg-gray-800">
+      <img [src]="pokemonimage[i]" alt="{{pokemon.name}}" class="w-10 h-10 mr-2">
+      <span>{{pokemon.name}}</span>
+    </li>
+  </ul>
+</div>
+<div class="flex items-center">
+  <div>
+    <button class="text-white p-2" (click)="open()">
+      <!-- [ngClass]="isIconToggled ? '' : 'hidden'" -->
+      <svg *ngIf="!isIconToggled" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+      <svg *ngIf="isIconToggled" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+      </svg>
+    </button>
+  </div>
+</div>
