@@ -1,6 +1,6 @@
 <div class="flex mt-2">
 
-  <app-postloadpokemon/>
+  <app-postloadpokemon (pokemonlistselected)="PokemonSelectedlist($event)"/>
 <!--   <app-postloadpokemon  [pokemonlist]="pokemons"/>
  --><form class="max-w-md w-1/2 mx-auto">
   <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>

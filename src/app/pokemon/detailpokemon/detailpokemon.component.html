@@ -6,28 +6,38 @@
         <h2 class="text-xl font-semibold text-gray-800 pokemon-name">{{ pokemon?.name }}</h2>
       </div>
       <!-- Detalles del Pokémon -->
-      <div class="p-6">
+      <div class="p-6 items-center">
         <!-- Imagen del Pokémon -->
-        <div class="text-center">
-          <img src="{{ pokemon?.sprites?.front_default }}" alt="{{ pokemon?.name }}" class="pokemon-image w-2">
+        <div class="justify-center items-center text-center">
+          <img src="{{ pokemon?.sprites?.front_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto"
+          [ngClass]="isIconToggled ? '' : 'hidden'">
+          <img src="{{ pokemon?.sprites?.back_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto"
+          [ngClass]="!isIconToggled ? '' : 'hidden'">
+          <button class="text-black p-2" (click)="rotate()">
+            <svg *ngIf="!isIconToggled" class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2v4M12 2a10 10 0 1 1-7.64 16.95M12 6h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <!-- SVG para estado rotado (Flecha de rotación hacia la izquierda) -->
+            <svg *ngIf="isIconToggled" class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22v-4M12 22a10 10 0 1 1 7.64-16.95M12 18h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
         <!-- Tipos del Pokémon -->
-        <div class="mt-4">
-          <h3 class="text-lg font-semibold text-gray-800">Tipos:</h3>
-          <ul class="mt-2">
-            <li *ngFor="let type of pokemon?.types" [ngClass]="getTypeColor(type.type.name)"
-              class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">
+        <div class="items-center">
+<!--           <h3 class="text-lg font-semibold text-gray-800">Tipos:</h3>-->
+          <ul class="grid grid-cols-2 content-center">
+            <li *ngFor="let type of pokemon?.types" Style="text-transform: capitalize;" [ngClass]="getTypeColor(type.type.name)"
+              class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white m-1">
               {{ type.type.name }}
             </li>
           </ul>
         </div>
         <button (click)="clickview()"><span>View All Details</span></button>
       </div>
-
-      <!-- Otras especificaciones del Pokémon -->
-
     </div>
-
+    <!-- Otras especificaciones del Pokémon -->
     <div class="mt-4"
     [ngClass]="hiddenView ? '' : 'hidden'">
       <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>

@@ -59,5 +59,10 @@ export class PokemonComponent implements OnInit {
   resetSearch(): void {
     this.searchInput = ''; // Restablecer el campo de búsqueda
   }
+
+  PokemonSelectedlist(pokemonName: string): void {
+    this.selectedPokemonName = pokemonName;
+    this.pokemonSelected.emit(pokemonName);
+  }
 }
 

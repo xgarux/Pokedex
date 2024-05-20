@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { ServiceService } from '../services/service.service';
 import { Result } from '../interface/interfacepokemonlist';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -15,10 +15,12 @@ import { Pokemon } from '../interface/interfacepokemon';
 })
 export class PostloadpokemonComponent implements OnInit{
   pokemons: Result[] = [];
-  pokemonimage:string[] = [];
+  pokemonresults:Pokemon[] = [];
+  pokemonSelected:string="";
   show: boolean = false;
   isIconToggled: boolean = true;
-  //@Input() pokemonlist?: Result[];
+
+  @Output() pokemonlistselected = new EventEmitter<string>();
 
   // Número de elementos a cargar por página
   pageSize = 20;
@@ -56,10 +58,19 @@ export class PostloadpokemonComponent implements OnInit{
         if (newPokemons) {
           // Por cada nuevo pokemon, obtenemos su información detallada para obtener la URL de la imagen
           newPokemons.forEach((pokemon: Result) => {
-            this.pokemonService.getPokemonByName(pokemon.name).subscribe((detailedPokemon) => {
+            this.pokemonService.getPokemonByName(pokemon.name).subscribe({
+              next: (poke: Pokemon) => {
+                this.pokemonresults.push(poke);
+              },
+              error: (err) => {
+                console.error(err);
+              }
+            }
+              /* (detailedPokemon) => {
               //this.pokemonimage = [...this.pokemonimage, ...detailedPokemon.sprites.front_default];
               this.pokemonimage.push(detailedPokemon.sprites.front_default);
-            });
+            } */
+          );
           });
 
           // Agrega los nuevos pokemons a la lista existente
@@ -74,5 +85,9 @@ export class PostloadpokemonComponent implements OnInit{
   open() {
     this.show = !this.show;
     this.isIconToggled = !this.isIconToggled;
+  }
+  selectPokemon(name: string): void {
+    this.pokemonlistselected.emit(name);
+    this.show = false;
   }
 }

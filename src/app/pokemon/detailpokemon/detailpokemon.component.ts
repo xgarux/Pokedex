@@ -19,6 +19,7 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   pokemon?: Pokemon;
   pokemon_id:number = 1;
   hiddenView:boolean = false;
+  isIconToggled:boolean = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
@@ -27,6 +28,7 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
         setTimeout(() => {
           this.getPokemon(newPokemonName);
           this.hiddenView=false;
+          this. isIconToggled = true;
         }, 500);
 
       }
@@ -37,8 +39,7 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   }
   getPokemon(name: string): void {
     this.servicePokemon.getPokemonByName(name).subscribe({
-      next: (poke: Pokemon | undefined) => {
-        console.log(poke);
+      next: (poke: Pokemon) => {
         this.pokemon = poke;
       },
       error: (err) => {
@@ -50,7 +51,9 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   clickview(){
     this.hiddenView = !this.hiddenView;
   }
-
+  rotate(){
+    this.isIconToggled = !this.isIconToggled
+  }
   getBackgroundColor(types: Pokemon): any {
     const primaryType = types.types.length > 0 ? types.types[0].type.name : '';
     switch (primaryType) {

@@ -10,8 +10,8 @@ export const routes: Routes = [
     .then(m => m.PokemonComponent)
   },
   {
-    path: 'list2',loadComponent:() => import('./pokemon/postloadpokemon/postloadpokemon.component')
-    .then(m => m.PostloadpokemonComponent)
+    path: 'list2',loadComponent:() => import('./pokemon/preloadpokemon/preloadpokemon.component')
+    .then(m => m.PreloadpokemonComponent)
   },
   {
     path: 'pokedex',loadComponent:() => import('./pokedex/pokedex.component')
