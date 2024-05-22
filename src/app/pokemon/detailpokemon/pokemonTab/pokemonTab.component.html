@@ -1,0 +1,101 @@
+<div class="tabs-container rounded-lg">
+  <ul class="flex justify-around bg-gray-500 rounded-full shadow my-2">
+    <li
+      class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:rounded-l-full hover:bg-gray-600"
+      [ngClass]="{'bg-gray-700 rounded-l-full text-white text-bold': activeTab === 'about'}"
+      (click)="selectTab('about')">
+      About
+    </li>
+    <li class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:bg-gray-600"
+      [ngClass]="{'bg-gray-700 text-white text-bold': activeTab === 'stats'}" (click)="selectTab('stats')">
+      Stats
+    </li>
+    <li
+      class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:rounded-r-full hover:bg-gray-600"
+      [ngClass]="{'rounded-r-full bg-gray-700 text-white text-bold': activeTab === 'evolution'}"
+      (click)="selectTab('evolution')">
+      Evolution
+    </li>
+  </ul>
+
+
+  <div class="tab-content rounded-t-full rounded-b-lg bg-slate-300" *ngIf="activeTab === 'about'">
+    <div class="grid grid-cols-3 gap-1 text-xs font-bold">
+      <!-- Primera fila -->
+      <div class="grid grid-rows-2 max-w-1">
+        <div class=" p-2">Altura
+          <div class="flex justify-center items-center font-normal">{{getHeightinM(pokemon?.height)}} m
+          </div>
+        </div>
+        <div class=" p-2">Peso
+          <div class="flex justify-center items-center font-normal">{{getHeightinM(pokemon?.weight)}} Kg
+          </div>
+        </div>
+      </div>
+      <!-- Segunda fila -->
+      <div class="grid grid-rows-2 max-w-1">
+        <div class=" p-2">Categoría
+          <div class="flex text-center justify-center items-center font-normal">{{shortCategory(characteristic)}}</div>
+        </div>
+
+        <div class=" p-2">Habilidad
+          <div class="w-max font-normal">{{ability}}</div>
+        </div>
+
+      </div>
+      <!-- Tercera fila -->
+      <div class="grid grid-row-2">
+        <div class="ml-2 p-2">Sexo
+          <div class="mt-2">
+            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 18 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4H1m3 4H1m3 4H1m3 4H1m6.071.286a3.429 3.429 0 1 1 6.858 0M4 1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+            </svg>
+          </div>
+          <div class="mt-4">
+            <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 18 20">
+              <path
+                d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM13.929 17H7.071a.5.5 0 0 1-.5-.5 3.935 3.935 0 1 1 7.858 0 .5.5 0 0 1-.5.5Z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Cuarta fila -->
+      <div class="grid bg-gray-300 p-1 col-span-3 rounded-lg">
+        <div class=""> Descripción
+          <div class="font-normal w-64">
+            {{description[0]}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content p-4 rounded-b-lg rounded-t-full  bg-slate-300" *ngIf="activeTab === 'stats'">
+    <div *ngFor="let stat of pokemon?.stats; let i = index">
+      <div class="mb-1 text-base font-medium">
+        <p class="inline-block w-1/4 text-xs font-bold">{{getAcronym(stat.stat.name)}}</p>
+        <div class="w-3/4 bg-gray-200 rounded-full h-2.5 mt-1 dark:bg-gray-700 inline-block">
+          <div class="h-2.5 rounded-full" (mouseenter)="showInfo[i] = true" (mouseleave)="showInfo[i] = false"
+            [ngClass]="{
+            'bg-red-400': stat.stat.name === 'hp',
+            'bg-orange-400': stat.stat.name === 'attack',
+            'bg-yellow-400': stat.stat.name === 'defense',
+            'bg-blue-400': stat.stat.name === 'special-attack',
+            'bg-green-400': stat.stat.name === 'special-defense',
+            'bg-pink-400': stat.stat.name === 'speed',
+          }" [style.width.%]="getStatPercentage(stat.base_stat)">
+            <div class="absolute bg-gray-700 opacity-70 text-white p-1 rounded-full"
+              [ngClass]="{'block': showInfo[i], 'hidden': !showInfo[i]}">
+              {{stat.base_stat}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content p-4 border border-gray-200 rounded-full" *ngIf="activeTab === 'evolution'">3</div>
+</div>

@@ -3,7 +3,7 @@ import { Component, OnInit, ElementRef, Input, Output, EventEmitter } from '@ang
 import { ServiceService } from '../services/service.service';
 import { Result } from '../interface/interfacepokemonlist';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { Subscription, timer } from 'rxjs';
+import { Subject, Subscription, takeUntil, timer } from 'rxjs';
 import { Pokemon } from '../interface/interfacepokemon';
 
 @Component({
@@ -19,6 +19,7 @@ export class PostloadpokemonComponent implements OnInit{
   pokemonSelected:string="";
   show: boolean = false;
   isIconToggled: boolean = true;
+  cont:number = 0;
 
   @Output() pokemonlistselected = new EventEmitter<string>();
 
@@ -32,20 +33,34 @@ export class PostloadpokemonComponent implements OnInit{
   // Suscripción al observable
   private subscription: Subscription = new Subscription();
   timerSubscription: Subscription = new Subscription();
-
+  private estado$ = new Subject<boolean>();
+  private destroy$ = new Subject<void>();
+  n:number=0;
 
   constructor(private pokemonService: ServiceService) { }
 
   ngOnInit(): void {
-    this.timerSubscription = timer(100, 100).subscribe(() => {
+    this.timerSubscription = timer(100, 100).pipe(
+      takeUntil(this.estado$),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
       this.loadPokemons();
+      this.detenerEjecucion(this.hasMorePokemons)
     });
 
   }
 
   ngOnDestroy(): void {
     // Liberar recursos al destruir el componente
+    this.destroy$.next();
+    this.destroy$.complete();
     this.subscription.unsubscribe();
+  }
+  detenerEjecucion(detener:boolean) {
+    if(!detener){
+      this.estado$.next(false);
+      this.estado$.complete();
+    }
   }
 
   loadPokemons(): void {

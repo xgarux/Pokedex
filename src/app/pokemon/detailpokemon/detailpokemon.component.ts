@@ -3,11 +3,12 @@ import { ServiceService } from '../services/service.service';
 import { Pokemon } from '../interface/interfacepokemon';
 import { CommonModule } from '@angular/common';
 import { PokemonComponent } from '../pokemon.component';
+import { PokemonTabComponent } from './pokemonTab/pokemonTab.component';
 
 @Component({
   selector: 'app-detailpokemon',
   standalone: true,
-  imports: [CommonModule, PokemonComponent],
+  imports: [CommonModule, PokemonComponent, PokemonTabComponent],
   templateUrl: './detailpokemon.component.html',
   styleUrl: './detailpokemon.component.css'
 })
@@ -20,7 +21,12 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   pokemon_id:number = 1;
   hiddenView:boolean = false;
   isIconToggled:boolean = true;
+  isFlipped = false;
 
+  toggleFlip() {
+    this.isFlipped = !this.isFlipped;
+    this.hiddenView= !this.hiddenView
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
       const newPokemonName = changes['pokemonName'].currentValue;
@@ -29,6 +35,7 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
           this.getPokemon(newPokemonName);
           this.hiddenView=false;
           this. isIconToggled = true;
+          this.isFlipped = false;
         }, 500);
 
       }
