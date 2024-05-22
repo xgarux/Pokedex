@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Pokemon, Species } from '../../interface/interfacepokemon';
 import { ServiceService } from '../../services/service.service';
 import { Interfacespecies } from '../../interface/interfacespecies';
@@ -23,13 +23,15 @@ export class PokemonTabComponent implements OnInit, OnChanges {
   characteristic:string="";
   ability:string="";
   deletestring:string="Pokémon"
+  evolclick:boolean = false;
+
 
   timerSubscription: Subscription = new Subscription();
 
   constructor(private servicePokemon: ServiceService) { }
 
   ngOnInit() {
-    this.timerSubscription = timer(1000).pipe(take(1))
+    this.timerSubscription = timer(500).pipe(take(1))
     .subscribe(() => {
       if (this.pokemon?.species.url) {
         this.getSpecies(this.removeLastCharacter(this.pokemon?.species.url));
@@ -53,6 +55,7 @@ export class PokemonTabComponent implements OnInit, OnChanges {
       }
     }
   }
+
   getAbility(url: string): void {
     this.servicePokemon.getAllByUrl(url).subscribe({
       next: (pokes: any) => {

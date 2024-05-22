@@ -4,11 +4,13 @@ import { Pokemon } from '../interface/interfacepokemon';
 import { CommonModule } from '@angular/common';
 import { PokemonComponent } from '../pokemon.component';
 import { PokemonTabComponent } from './pokemonTab/pokemonTab.component';
+import { first } from 'rxjs';
+import { EvolutionChainComponent } from './evolution-chain/evolution-chain.component';
 
 @Component({
   selector: 'app-detailpokemon',
   standalone: true,
-  imports: [CommonModule, PokemonComponent, PokemonTabComponent],
+  imports: [CommonModule, PokemonComponent, PokemonTabComponent,EvolutionChainComponent],
   templateUrl: './detailpokemon.component.html',
   styleUrl: './detailpokemon.component.css'
 })
@@ -21,9 +23,16 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
   pokemon_id:number = 1;
   hiddenView:boolean = false;
   isIconToggled:boolean = true;
-  isFlipped = false;
-
+  isFlipped:boolean = false;
+  isFlipped2:boolean = false;
+  showDiv = false;
+  toggleFlip2() {
+    this.isFlipped2 = !this.isFlipped2;
+  }
   toggleFlip() {
+    if (this.hiddenView) {
+      this.isFlipped2 = false;
+    }
     this.isFlipped = !this.isFlipped;
     this.hiddenView= !this.hiddenView
   }
@@ -36,13 +45,14 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
           this.hiddenView=false;
           this. isIconToggled = true;
           this.isFlipped = false;
+          this.isFlipped2 = false;
         }, 500);
-
       }
     }
   }
   ngOnInit(): void {
     this.getPokemon('bulbasaur');
+    this.showDivWithDelay();
   }
   getPokemon(name: string): void {
     this.servicePokemon.getPokemonByName(name).subscribe({
@@ -53,8 +63,13 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
         console.error(err);
       }
     });
-
   }
+  showDivWithDelay(): void {
+    setTimeout(() => {
+      this.showDiv = true;
+    }, 500);
+  }
+
   clickview(){
     this.hiddenView = !this.hiddenView;
   }

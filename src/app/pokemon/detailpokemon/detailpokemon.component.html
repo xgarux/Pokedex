@@ -1,18 +1,20 @@
-<div class="container pokemon-card card-container">
-  <div class="rounded-lg shadow-lg  card" [class.flipped]="isFlipped">
+<div class="container pokemon-card card-container bg-red-700">
+  <div class="rounded-lg shadow-lg  card shrink-0" [class.flipped]="isFlipped">
     <!-- Encabezado con el nombre del Pokwh-animatedémon -->
     <div class="box2 front rounded-lg">
       <div class="px-6 py-4">
-        <h2 class="text-xl font-semibold text-gray-800 pokemon-name">{{ pokemon?.name }}</h2>
+        <h2 class="flex justify-center items-center text-xl font-semibold text-gray-800 pokemon-name"> <img
+            src="../../../assets/img/pokebola (2).png" alt="" class="w-7 mr-2 pt-1 inline-block" loading="lazy"> {{
+          pokemon?.name }} #{{pokemon?.id}}</h2>
       </div>
       <!-- Detalles del Pokémon -->
       <div class="p-6 items-center">
         <!-- Imagen del Pokémon -->
         <div class="justify-center items-center text-center">
-          <img src="{{ pokemon?.sprites?.front_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto"
-            [ngClass]="isIconToggled ? '' : 'hidden'">
-          <img src="{{ pokemon?.sprites?.back_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto"
-            [ngClass]="!isIconToggled ? '' : 'hidden'">
+          <img src="{{ pokemon?.sprites?.other?.['official-artwork']?.front_default}}" alt="{{ pokemon?.name }}"
+            class="pokemon-image mx-auto" [ngClass]="isIconToggled ? '' : 'hidden'">
+          <img src="{{ pokemon?.sprites?.other?.['official-artwork']?.front_shiny}}" alt="{{ pokemon?.name }}"
+            class="pokemon-image mx-auto" [ngClass]="!isIconToggled ? '' : 'hidden'">
           <button class="text-black p-2" (click)="rotate()">
             <svg *ngIf="!isIconToggled" class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2v4M12 2a10 10 0 1 1-7.64 16.95M12 6h4" stroke="currentColor" stroke-width="2"
@@ -36,16 +38,11 @@
             </li>
           </ul>
         </div>
-
-
       </div>
     </div>
     <!-- Otras especificaciones del Pokémon -->
     <div class="back box2 rounded-lg">
-      <div>
-        <img src="{{ pokemon?.sprites?.front_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto">
-      </div>
-      <app-pokemonTab [pokemon]="pokemon" />
+      <app-pokemonTab [pokemon]="pokemon"/>
     </div>
     <!-- <div class="mt-4 " [ngClass]="hiddenView ? '' : 'hidden'">
       <h3 class="text-lg font-semibold text-gray-800">Especificaciones:</h3>
@@ -55,16 +52,26 @@
         <li><span class="font-semibold">Peso:</span> {{ pokemon?.weight }}</li>
       </ul>
     </div> -->
-  </div>
 
+  </div>
+  <div class="card2 right-div" [class.flipped2]="!isFlipped2" [class.flipped3]="isFlipped2" *ngIf="showDiv">
+    <div class="front2 bg-slate-100 rounded-r-lg">
+      <app-evolution-chain [pokemon]="pokemon" />
+    </div>
+  </div>
 </div>
 <div class="flex justify-center">
-  <button class="p-2 rounded-full font-bold text-xs text-white bg-red-600 hover:bg-red-700 focus:outline-none" (click)="toggleFlip()"><span>
+  <button class="p-2 rounded-full font-bold text-xs text-white bg-red-600 hover:bg-red-700 focus:outline-none"
+    (click)="toggleFlip()"><span>
 
       @if (!hiddenView) {
       Ver Mas
       }@else {
       Ver Menos
       }
+    </span></button>
+    <button class="p-2 rounded-full font-bold text-xs text-white bg-red-600 hover:bg-red-700 focus:outline-none"
+    (click)="toggleFlip2()"><span>
+      Ver Evoluciones
     </span></button>
 </div>

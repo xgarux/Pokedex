@@ -1,0 +1,10 @@
+<div class="bg-blue-200 rounded-r-lg w-auto">
+  <div *ngFor="let p of evolListname; let i = index"
+    class="flex justify-center items-center">
+    <div>
+      <div class="flex justify-center items-center">{{p}}</div>
+      <img src="{{evolListsprites[i]}}" alt="{{p}}">
+    </div>
+
+  </div>
+</div>

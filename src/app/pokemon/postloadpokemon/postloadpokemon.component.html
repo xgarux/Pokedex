@@ -18,7 +18,7 @@
   <ul class="overflow-y-auto flex-grow max-h-screen">
     <li *ngFor="let pokemon of pokemonresults" (click)="selectPokemon(pokemon.name)" class="hand flex items-center mb-2 dark:hover:bg-gray-800">
       <img [src]="pokemon.sprites.front_default" alt="{{pokemon.name}}" class="w-10 h-10 mr-2">
-      <span>{{pokemon.name}}</span>
+      <span>{{pokemon.name}} #{{pokemon.id}}</span>
     </li>
   </ul>
 </div>

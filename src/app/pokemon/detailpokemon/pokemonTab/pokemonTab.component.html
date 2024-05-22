@@ -1,3 +1,8 @@
+<div>
+  <h3 class="flex items-center justify-center capitalize font-bold"><img src="../../../assets/img/pokebola (2).png"
+      alt="" class="w-4 mr-1 pt-1 inline-block" loading="lazy">{{pokemon?.name}} #{{pokemon?.id}}</h3>
+  <img src="{{ pokemon?.sprites?.front_default}}" alt="{{ pokemon?.name }}" class="pokemon-image mx-auto">
+</div>
 <div class="tabs-container rounded-lg">
   <ul class="flex justify-around bg-gray-500 rounded-full shadow my-2">
     <li
@@ -6,15 +11,9 @@
       (click)="selectTab('about')">
       About
     </li>
-    <li class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:bg-gray-600"
-      [ngClass]="{'bg-gray-700 text-white text-bold': activeTab === 'stats'}" (click)="selectTab('stats')">
+    <li class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:rounded-r-full hover:bg-gray-600"
+      [ngClass]="{'rounded-r-full bg-gray-700 text-white text-bold': activeTab === 'stats'}" (click)="selectTab('stats')">
       Stats
-    </li>
-    <li
-      class="tab font-bold p-2 w-full text-center cursor-pointer border-b-2 border-transparent hover:rounded-r-full hover:bg-gray-600"
-      [ngClass]="{'rounded-r-full bg-gray-700 text-white text-bold': activeTab === 'evolution'}"
-      (click)="selectTab('evolution')">
-      Evolution
     </li>
   </ul>
 
@@ -23,12 +22,12 @@
     <div class="grid grid-cols-3 gap-1 text-xs font-bold">
       <!-- Primera fila -->
       <div class="grid grid-rows-2 max-w-1">
-        <div class=" p-2">Altura
-          <div class="flex justify-center items-center font-normal">{{getHeightinM(pokemon?.height)}} m
+        <div class=" p-2 relative">Altura
+          <div class="flex justify-center items-center font-normal absolute z-10">{{getHeightinM(pokemon?.height)}} m
           </div>
         </div>
-        <div class=" p-2">Peso
-          <div class="flex justify-center items-center font-normal">{{getHeightinM(pokemon?.weight)}} Kg
+        <div class=" p-2 relative">Peso
+          <div class="flex justify-center items-center font-normal absolute z-10">{{getHeightinM(pokemon?.weight)}} Kg
           </div>
         </div>
       </div>
@@ -96,6 +95,4 @@
       </div>
     </div>
   </div>
-
-  <div class="tab-content p-4 border border-gray-200 rounded-full" *ngIf="activeTab === 'evolution'">3</div>
 </div>
