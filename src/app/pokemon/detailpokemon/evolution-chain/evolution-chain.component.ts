@@ -23,7 +23,8 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
   evolUrl:string ="";
   evolutionChain?:Evolution;
   evolListname:string[] = [];
-  evolListdesc:string[] = [];
+  evolListdesc:string[] = ['Evolucion Base'];
+  evolListmotivo:string[] = [''];
   evolListsprites:string[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -32,8 +33,9 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       if (newPokemon) {
         setTimeout(() => {
           this.evolListname = [];
-          this.evolListdesc = [];
+          this.evolListdesc = ['Evolucion Base'];
           this.evolListsprites = [];
+          this.evolListmotivo= [''];
           this.getAll(newPokemon.species.url);
         }, 50);
 
@@ -88,6 +90,14 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
     }
 
   } */
+  getTooltipDescription(sprite: string): string {
+    const index = this.evolListsprites.indexOf(sprite);
+    if (index !== -1 && index < this.evolListdesc.length) {
+      return this.evolListdesc[index];
+    } else {
+      return 'Descripción no disponible';
+    }
+  }
   getSpecies(url: string): void {
     this.servicePokemon.getAllByUrl(url).subscribe({
       next: (poke: any) => {
@@ -114,6 +124,16 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
 
     for (let detail of chain.evolution_details) {
       this.evolListdesc.push(detail.trigger.name);
+      for (let [key, value] of Object.entries(detail)) {
+        if (value !== null && key !== 'trigger') {
+          if(typeof value === 'object'){
+            this.evolListmotivo.push(value.name);
+          }else{
+            this.evolListmotivo.push(value);
+          }
+          break; // Detener la búsqueda después de encontrar el primer campo no nulo
+        }
+      }
     }
 
     if (chain.evolves_to && chain.evolves_to.length > 0) {
@@ -125,5 +145,17 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
 
   initializeEvolution(evolution: Evolution) {
     this.getEvolutions(evolution.chain);
+  }
+  concatDesc(description: string, motivo: string): string {
+    if (!description && !motivo) {
+      return ''; // Si ambos son nulos o vacíos, retornar una cadena vacía
+    } else if (!description) {
+      return motivo; // Si la descripción es nula o vacía, retornar solo el motivo
+    } else if (!motivo) {
+      return description; // Si el motivo es nulo o vacío, retornar solo la descripción
+    } else {
+      // Si ambos tienen contenido, concatenar la descripción y el motivo
+      return `${description} ${motivo}`;
+    }
   }
 }

@@ -1,0 +1,18 @@
+.contenido {
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+}
+
+/* Estilos del scroll */
+.contenido::-webkit-scrollbar {
+  width: 6px; /* Ancho del scroll */
+}
+
+.contenido::-webkit-scrollbar-thumb {
+  background-color: #4B5563; /* Color del thumb (barra de desplazamiento) */
+}
+
+.contenido::-webkit-scrollbar-track {
+  background-color: #E5E7EB; /* Color de la pista (fondo del scroll) */
+}

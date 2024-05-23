@@ -1,9 +1,11 @@
-<div class="bg-blue-200 rounded-r-lg w-auto">
+<div class="contenido bg-white rounded-r-lg w-auto overflow-hidden h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200">
   <div *ngFor="let p of evolListname; let i = index"
     class="flex justify-center items-center">
     <div>
       <div class="flex justify-center items-center">{{p}}</div>
-      <img src="{{evolListsprites[i]}}" alt="{{p}}">
+      <div>
+        <img src="{{evolListsprites[i]}}" alt="{{p}}" title="{{concatDesc(evolListdesc[i],evolListmotivo[i])}}">
+      </div>
     </div>
 
   </div>
