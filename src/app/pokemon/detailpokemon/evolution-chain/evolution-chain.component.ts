@@ -26,25 +26,40 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
   evolListdesc:string[] = ['Evolucion Base'];
   evolListmotivo:string[] = [''];
   evolListsprites:string[] = [];
+  countEvoleTox:number=0;
+  countEvoleToy:number=0;
+  MatName:string[][]=[];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemon'] && !changes['pokemon'].firstChange) {
       const newPokemon = changes['pokemon'].currentValue;
       if (newPokemon) {
         setTimeout(() => {
+          this.countEvoleTox = 0;
+          this.countEvoleToy = 0;
           this.evolListname = [];
           this.evolListdesc = ['Evolucion Base'];
           this.evolListsprites = [];
           this.evolListmotivo= [''];
+          this.matrizNull();
           this.getAll(newPokemon.species.url);
         }, 50);
 
       }
     }
   }
+  matrizNull(){
+    for (let i = 0; i < 10; i++) {
+      this.MatName[i] = [];
+      for (let j = 0; j < 10; j++) {
+        this.MatName[i][j] = '';
+      }
+    }
+  }
   ngOnInit(): void {
     if (this.pokemon?.species?.url) {
       this.getAll(this.pokemon?.species?.url);
+      this.matrizNull();
      } else {
       console.error('La URL de la especie del Pokémon no está definida.');
     }
@@ -57,6 +72,7 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
         this.getEvolutionChain(this.evolUrl);
         this.timerSubscription = timer(500).pipe(take(1)).subscribe(() => {
           this.getSprites(this.evolListname);
+          console.log(this.MatName);
         });
        } else {
         console.error('La URL de la especie del Pokémon no está definida.');
@@ -122,6 +138,8 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
   getEvolutions(chain: Chain) {
     this.evolListname.push(chain.species.name);
 
+    this.MatName[this.countEvoleTox][this.countEvoleToy] = chain.species.name;
+
     for (let detail of chain.evolution_details) {
       this.evolListdesc.push(detail.trigger.name);
       for (let [key, value] of Object.entries(detail)) {
@@ -137,7 +155,9 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
     }
 
     if (chain.evolves_to && chain.evolves_to.length > 0) {
+      this.countEvoleTox ++;
       for (let nextChain of chain.evolves_to) {
+        this.countEvoleToy ++;
         this.getEvolutions(nextChain);
       }
     }
@@ -158,4 +178,17 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       return `${description} ${motivo}`;
     }
   }
+  getClassColumn(val : number): string {
+    return 'grid-cols-' + val;
+  }
+  getClassRows(val : number): string {
+    return 'grid-rows-' + val;
+  }
+  contarValoresPorFila(): number[] {
+    return this.MatName.map(fila =>
+      fila.filter(valor => this.evolListname.includes(valor)).length
+    );
+  }
+
+
 }
