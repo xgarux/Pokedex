@@ -1,32 +1,22 @@
 <div
-  class="contenido bg-white rounded-r-lg w-auto overflow-hidden h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200">
- <!--  <div class="grid" [ngClass]="getClassColumn(this.countEvoleTox+1)">
-    <div *ngFor="let name of evolListname; let i = index" class="grid" [ngClass]="getClassRows(evolListdesc[i])">
-
-      <div class="">
-        <img class="" src="{{evolListsprites[i]}}" alt="{{name}}" title="{{concatDesc(evolListdesc[i],evolListmotivo[i])}}">
-        <p class="relative pl-4" style="top: -15%;">{{name}}</p>
-        @if (evolListname.length!==i+1) {
-          <h1 style="left: 80%;" class="text-xl font-black relative -top-1/2">></h1>
-        }
-      </div>
-    </div>
-  </div> -->
+  class="contenido bg-blue-300 rounded-r-lg w-auto overflow-hidden
+  overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500
+  scrollbar-track-gray-200">
   <div class="grid gap-4" [ngClass]="getClassColumn(this.countEvoleTox+1)">
     <ng-container *ngFor="let fila of MatName; let i = index">
-      <div class=" grid"
-         [ngClass]="getClassRows(contarValoresPorFila()[i])">
-      <ng-container *ngFor="let valor of fila; let j = index">
-        <div  *ngIf="evolListname.includes(valor)" class="">
-          <div class="">
-            <img class="" src="{{evolListsprites[i]}}" alt="{{valor}}" title="{{concatDesc(evolListdesc[i],evolListmotivo[i])}}">
-            <p class="relative pl-4" style="top: -15%;">{{valor}}</p>
-            @if (evolListname.length!==i+1) {
-              <!-- <h1 style="left: 80%;" class="text-xl font-black relative -top-1/2">></h1> -->
-            }
+      <div class=" grid" [ngClass]="getClassRows(contarValoresPorFila()[i])">
+        <ng-container *ngFor="let valor of fila; let j = index">
+          <div *ngIf="evolListname.includes(valor)" class="">
+            <p class="flex justify-center items-center">{{valor}}</p>
+            <div class="flex items-center justify-center">
+              <img class="w-10/12 inline-block bg-white rounded-full ml-1" src="{{evolListsprites[j]}}" alt="{{valor}}"
+                title="{{concatDesc(evolListdesc[j],evolListmotivo[j])}}">
+              @if (!getIndex(j).includes(countEvoleToy) && getIndex(j).length!==0) {
+              <h1 class="text-xl font-black inline-block z-10">></h1>
+              }
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
       </div>
     </ng-container>
   </div>

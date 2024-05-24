@@ -13,22 +13,23 @@ import { CommonModule } from '@angular/common';
   templateUrl: './evolution-chain.component.html',
   styleUrl: './evolution-chain.component.css'
 })
-export class EvolutionChainComponent implements OnInit, OnChanges{
+export class EvolutionChainComponent implements OnInit, OnChanges {
 
   constructor(private servicePokemon: ServiceService) { }
 
   timerSubscription: Subscription = new Subscription();
 
   @Input() pokemon?: Pokemon;
-  evolUrl:string ="";
-  evolutionChain?:Evolution;
-  evolListname:string[] = [];
-  evolListdesc:string[] = ['Evolucion Base'];
-  evolListmotivo:string[] = [''];
-  evolListsprites:string[] = [];
-  countEvoleTox:number=0;
-  countEvoleToy:number=0;
-  MatName:string[][]=[];
+  evolUrl: string = "";
+  evolutionChain?: Evolution;
+  evolListname: string[] = [];
+  evolListdesc: string[] = ['Evolucion Base'];
+  evolListmotivo: string[] = [''];
+  evolListsprites: string[] = [];
+  countEvoleTox: number = 0;
+  countEvoleToy: number = 0;
+  MatName: string[][] = [];
+  iterar:number=0;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemon'] && !changes['pokemon'].firstChange) {
@@ -40,7 +41,7 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
           this.evolListname = [];
           this.evolListdesc = ['Evolucion Base'];
           this.evolListsprites = [];
-          this.evolListmotivo= [''];
+          this.evolListmotivo = [''];
           this.matrizNull();
           this.getAll(newPokemon.species.url);
         }, 50);
@@ -48,7 +49,7 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       }
     }
   }
-  matrizNull(){
+  matrizNull() {
     for (let i = 0; i < 10; i++) {
       this.MatName[i] = [];
       for (let j = 0; j < 10; j++) {
@@ -60,24 +61,23 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
     if (this.pokemon?.species?.url) {
       this.getAll(this.pokemon?.species?.url);
       this.matrizNull();
-     } else {
+    } else {
       console.error('La URL de la especie del Pokémon no está definida.');
     }
   }
   getAll(url: string): void {
     this.getSpecies(url);
     this.timerSubscription = timer(500).pipe(take(1))
-    .subscribe(() => {
-      if (this.evolUrl) {
-        this.getEvolutionChain(this.evolUrl);
-        this.timerSubscription = timer(500).pipe(take(1)).subscribe(() => {
-          this.getSprites(this.evolListname);
-          console.log(this.MatName);
-        });
-       } else {
-        console.error('La URL de la especie del Pokémon no está definida.');
-      }
-    });
+      .subscribe(() => {
+        if (this.evolUrl) {
+          this.getEvolutionChain(this.evolUrl);
+          this.timerSubscription = timer(500).pipe(take(1)).subscribe(() => {
+            this.getSprites(this.evolListname);
+          });
+        } else {
+          console.error('La URL de la especie del Pokémon no está definida.');
+        }
+      });
   }
   getSprites(names: string[]): void {
     const observables = names.map(name => this.servicePokemon.getPokemonByName(name));
@@ -144,9 +144,9 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       this.evolListdesc.push(detail.trigger.name);
       for (let [key, value] of Object.entries(detail)) {
         if (value !== null && key !== 'trigger') {
-          if(typeof value === 'object'){
+          if (typeof value === 'object') {
             this.evolListmotivo.push(value.name);
-          }else{
+          } else {
             this.evolListmotivo.push(value);
           }
           break; // Detener la búsqueda después de encontrar el primer campo no nulo
@@ -155,9 +155,9 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
     }
 
     if (chain.evolves_to && chain.evolves_to.length > 0) {
-      this.countEvoleTox ++;
+      this.countEvoleTox++;
       for (let nextChain of chain.evolves_to) {
-        this.countEvoleToy ++;
+        this.countEvoleToy++;
         this.getEvolutions(nextChain);
       }
     }
@@ -178,10 +178,10 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       return `${description} ${motivo}`;
     }
   }
-  getClassColumn(val : number): string {
+  getClassColumn(val: number): string {
     return 'grid-cols-' + val;
   }
-  getClassRows(val : number): string {
+  getClassRows(val: number): string {
     return 'grid-rows-' + val;
   }
   contarValoresPorFila(): number[] {
@@ -189,6 +189,11 @@ export class EvolutionChainComponent implements OnInit, OnChanges{
       fila.filter(valor => this.evolListname.includes(valor)).length
     );
   }
-
-
+  getIndex(i:number): number [] {
+    //aun ni lo uso -.-
+    const filaEspecifica = this.MatName[i];
+    return filaEspecifica
+      .map((valor, indice) => this.evolListname.includes(valor) ? indice : -1)
+      .filter(indice => indice !== -1);
+  }
 }
