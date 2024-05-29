@@ -1,18 +1,18 @@
-<div
-  class="contenido bg-blue-300 rounded-r-lg w-auto overflow-hidden
+<div class="contenido rounded-r-lg w-auto overflow-hidden
   overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500
-  scrollbar-track-gray-200">
+  scrollbar-track-gray-200 bg-poke">
   <div class="grid gap-4" [ngClass]="getClassColumn(this.countEvoleTox+1)">
     <ng-container *ngFor="let fila of MatName; let i = index">
       <div class=" grid" [ngClass]="getClassRows(contarValoresPorFila()[i])">
         <ng-container *ngFor="let valor of fila; let j = index">
           <div *ngIf="evolListname.includes(valor)" class="">
-            <p class="flex justify-center items-center">{{valor}}</p>
+            <p class="flex justify-center items-center font-bold">{{valor}}</p>
             <div class="flex items-center justify-center">
               <img class="w-10/12 inline-block bg-white rounded-full ml-1" src="{{evolListsprites[j]}}" alt="{{valor}}"
                 title="{{concatDesc(evolListdesc[j],evolListmotivo[j])}}">
               @if (!getIndex(j).includes(countEvoleToy) && getIndex(j).length!==0) {
-              <h1 class="text-xl font-black inline-block z-10">></h1>
+                <img src="../../../../assets/img/flecha-hacia-arriba.png" alt=""
+                class="rotate-90 w-6 absolute pb-28">
               }
             </div>
           </div>

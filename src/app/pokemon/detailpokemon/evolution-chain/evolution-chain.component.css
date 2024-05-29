@@ -16,3 +16,7 @@
 .contenido::-webkit-scrollbar-track {
   background-color: #E5E7EB; /* Color de la pista (fondo del scroll) */
 }
+
+.bg-poke{
+  background-color: #8df1f0;
+}

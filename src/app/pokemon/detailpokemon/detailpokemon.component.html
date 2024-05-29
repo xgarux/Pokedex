@@ -16,15 +16,10 @@
           <img src="{{ pokemon?.sprites?.other?.['official-artwork']?.front_shiny}}" alt="{{ pokemon?.name }}"
             class="pokemon-image mx-auto" [ngClass]="!isIconToggled ? '' : 'hidden'">
           <button class="text-black p-2" (click)="rotate()">
-            <svg *ngIf="!isIconToggled" class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2v4M12 2a10 10 0 1 1-7.64 16.95M12 6h4" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <!-- SVG para estado rotado (Flecha de rotación hacia la izquierda) -->
-            <svg *ngIf="isIconToggled" class="h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22v-4M12 22a10 10 0 1 1 7.64-16.95M12 18h-4" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <img src="../../../assets/img/lucha.png" alt="Shini version" class="w-8"
+            [ngClass]="isIconToggled ? '' : 'hidden'">
+            <img src="../../../assets/img/lucha.png" alt="Normal version" class="w-8 rotate-180"
+            [ngClass]="!isIconToggled ? '' : 'hidden'">
           </button>
         </div>
         <!-- Tipos del Pokémon -->
