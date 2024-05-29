@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PokemonComponent } from '../pokemon/pokemon.component';
 import { CommonModule } from '@angular/common';
 import { DetailpokemonComponent } from '../pokemon/detailpokemon/detailpokemon.component';
@@ -6,14 +6,14 @@ import { DetailpokemonComponent } from '../pokemon/detailpokemon/detailpokemon.c
 @Component({
   selector: 'app-pokedex',
   standalone: true,
-  imports: [PokemonComponent, CommonModule, PokemonComponent, DetailpokemonComponent],
+  imports: [CommonModule, PokemonComponent, DetailpokemonComponent],
   templateUrl: './pokedex.component.html',
-  styleUrl: './pokedex.component.css',
-
+  styleUrls: ['./pokedex.component.css']
 })
 export class PokedexComponent {
   isOpen: boolean = true;
   selectedPokemonName: string = '';
+
   onPokemonSelected(pokemonName: string): void {
     this.selectedPokemonName = pokemonName;
     this.toggle();

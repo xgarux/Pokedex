@@ -10,50 +10,55 @@ import { EvolutionChainComponent } from './evolution-chain/evolution-chain.compo
 @Component({
   selector: 'app-detailpokemon',
   standalone: true,
-  imports: [CommonModule, PokemonComponent, PokemonTabComponent,EvolutionChainComponent],
+  imports: [CommonModule, PokemonComponent, PokemonTabComponent, EvolutionChainComponent],
   templateUrl: './detailpokemon.component.html',
-  styleUrl: './detailpokemon.component.css'
+  styleUrls: ['./detailpokemon.component.css'] // Asegúrate de que está bien escrito
 })
-export class DetailpokemonComponent implements OnChanges, OnInit{
+export class DetailpokemonComponent implements OnChanges, OnInit {
 
-  constructor(private servicePokemon: ServiceService) { }
+  constructor(private servicePokemon: ServiceService) {}
 
   @Input() pokemonName: string = 'bulbasaur';
   pokemon?: Pokemon;
-  pokemon_id:number = 1;
-  hiddenView:boolean = false;
-  isIconToggled:boolean = true;
-  isFlipped:boolean = false;
-  isFlipped2:boolean = false;
+  pokemon_id: number = 1;
+  hiddenView: boolean = false;
+  isIconToggled: boolean = true;
+  isFlipped: boolean = false;
+  isFlipped2: boolean = false;
   showDiv = false;
+
   toggleFlip2() {
     this.isFlipped2 = !this.isFlipped2;
   }
+
   toggleFlip() {
     if (this.hiddenView) {
       this.isFlipped2 = false;
     }
     this.isFlipped = !this.isFlipped;
-    this.hiddenView= !this.hiddenView
+    this.hiddenView = !this.hiddenView;
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
       const newPokemonName = changes['pokemonName'].currentValue;
       if (newPokemonName) {
         setTimeout(() => {
           this.getPokemon(newPokemonName);
-          this.hiddenView=false;
-          this. isIconToggled = true;
+          this.hiddenView = false;
+          this.isIconToggled = true;
           this.isFlipped = false;
           this.isFlipped2 = false;
         }, 500);
       }
     }
   }
+
   ngOnInit(): void {
     this.getPokemon('bulbasaur');
     this.showDivWithDelay();
   }
+
   getPokemon(name: string): void {
     this.servicePokemon.getPokemonByName(name).subscribe({
       next: (poke: Pokemon) => {
@@ -64,18 +69,21 @@ export class DetailpokemonComponent implements OnChanges, OnInit{
       }
     });
   }
+
   showDivWithDelay(): void {
     setTimeout(() => {
       this.showDiv = true;
     }, 500);
   }
 
-  clickview(){
+  clickview() {
     this.hiddenView = !this.hiddenView;
   }
-  rotate(){
-    this.isIconToggled = !this.isIconToggled
+
+  rotate() {
+    this.isIconToggled = !this.isIconToggled;
   }
+
   getBackgroundColor(types: Pokemon): any {
     const primaryType = types.types.length > 0 ? types.types[0].type.name : '';
     switch (primaryType) {
